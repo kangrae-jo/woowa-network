@@ -19,6 +19,31 @@
 | Route Table | 목적지 IP에 따라 트래픽이 어디로 가야 하는지 정하는 경로표 |
 | Security Group | EC2나 ENI 앞에서 인바운드·아웃바운드 트래픽을 제어하는 방화벽 |
 
+```mermaid
+architecture-beta
+  group browser(cloud)[Browser]
+  group aws_region(cloud)[AWS Region]
+  group vpc(cloud)[VPC] in aws_region
+  group subnet(cloud)[Public Subnet] in vpc
+  group instance(server)[EC2 Instance] in subnet
+  
+  service eni(internet)[ENI] in instance
+  service app(server)[Application] in instance
+  service sg(disk)[Security Group] in subnet
+  service rt(disk)[Route Table] in vpc
+  service igw(internet)[Internet Gateway] in vpc
+  service route53(cloud)[Route 53] in aws_region
+  
+  service browser_svc(internet)[Browser Service] in browser
+  
+  browser_svc{group}:R --> L:route53{group}
+  route53:R --> L:igw
+  igw:B --> T:rt
+  rt:B --> T:sg
+  sg:R --> L:eni
+  eni:R --> L:app
+```
+
 ## 🗒️ passports
 
 ### request
