@@ -1,7 +1,7 @@
 # 🌏 woowa-network
 
 ## 👀 App
-- [Goto Roomescape](http://3.38.165.150:8080)
+- [Goto Roomescape](http://43.202.2.142:8080)
 
 ## ❓ Keywords
 
